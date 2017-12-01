@@ -1,7 +1,7 @@
 {
     "project_name": "project_name",
     "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
-    "import_name": "{{ cookiecutter.project_name }}",
+    "import_name": "src",
     "author_name": "SLAC National Accelerator Laboratories",
     "description": "A short description of the project.",
     "python_interpreter": ["python", "python3"]
