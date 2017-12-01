@@ -46,48 +46,48 @@ The directory structure of your new project looks like this:
 
 .. code-block:: text
 
-  ├── {{ import_name }}  <- Source code for use in this project.
+  ├── {{ import_name }}    <- Source code for use in this project.
   │   │
-  │   ├── __init__.py    <- Init file for the project
+  │   ├── __init__.py      <- Init file for the project
   │   │
-  │   └── utils.py       <- Utility functions used throughout the repo
+  │   ├── utils.py         <- Utility functions used throughout the repo
+  │   │
+  │   └── tests            <- Tests for the module
+  │       │                
+  │       ├── __init__.py  <- Init file for the tests
+  │       │                
+  │       └── conftest.py  <- Pytest conftest file
   │   
-  ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
+  ├── docs                 <- A default Sphinx project; see sphinx-doc.org for details
   │   
-  ├── logs               <- Directory for log files and is not version controlled
+  ├── docs-requirements    <- Requirements to make the sphinx documentation
+  │   
+  ├── logs                 <- Directory for log files and is not version controlled
   │  
-  ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-  │                         the creator's initials, and a short `-` delimited description, e.g.
-  │                         `1.0-jqp-initial-data-exploration`
+  ├── .coveragerc          <- Coveragerc file when running coverage
   │
-  ├── references         <- Data dictionaries, manuals, and all other explanatory materials
+  ├── .gitignore           <- Gitignore for the repo
   │
-  ├── .coveragerc        <- Coveragerc file when running coverage
+  ├── .landscape.yml       <- Yaml file for Landscape continuous code metrics
   │
-  ├── .gitignore         <- Gitignore for the repo
+  ├── .logging.yml         <- Yaml file for the logger
   │
-  ├── .landscape.yml     <- Yaml file for Landscape continuous code metrics
+  ├── .travis.yml          <- Yaml file for travis continuous integration
   │
-  ├── .logging.yml       <- Yaml file for the logger
+  ├── LICENSE              <- License for the project
   │
-  ├── .travis.yml        <- Yaml file for travis continuous integration
+  ├── Makefile             <- Makefile for the project
   │
-  ├── LICENSE            <- License for the project
+  ├── README.md            <- The top-level README for developers using this project
   │
-  ├── Makefile           <- Makefile for the project
-  │
-  ├── README.md          <- The top-level README for developers using this project
-  │
-  ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+  ├── requirements.txt     <- The requirements file for reproducing the analysis environment, e.g.
   │                         generated with `pip freeze > requirements.txt`
   │
-  ├── run_tests.py       <- Script that runs the files in the tests directory
+  ├── run_tests.py         <- Script that runs the files in the tests directory
   │
-  ├── setup.cfg          <- Setup file for versioneer
+  ├── setup.cfg            <- Setup file for versioneer
   │
-  ├── setup.py           <- `setup.py` file configured to use versioneer
-  │
-  └── versioneer.py      <- Versioneer source file
+  └── setup.py             <- `setup.py` file configured to use versioneer
 
 
 Installing Development Requirements

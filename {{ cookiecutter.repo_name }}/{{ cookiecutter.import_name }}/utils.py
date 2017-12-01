@@ -63,10 +63,10 @@ def setup_logging(path_yaml=None, dir_logs=None, default_level=logging.INFO):
     """
     Sets up the logging module to make a properly configured logger.
 
-    This will go into the ``logging.yaml`` file in the top level directory, and
+    This will go into the ``logging.yml`` file in the top level directory, and
     try to load the logging configuration. If it fails for any reason, it will
     just use the default configuration. For more details on how the logger will
-    be configured, see the ``logging.yaml`` file.
+    be configured, see the ``logging.yml`` file.
 
     Parameters
     ----------
@@ -81,7 +81,7 @@ def setup_logging(path_yaml=None, dir_logs=None, default_level=logging.INFO):
     """
     # Get the yaml path
     if path_yaml is None:
-        path_yaml = DIR_MODULE / "logging.yaml"
+        path_yaml = DIR_MODULE / "logging.yml"
     # Make sure we are using Path objects
     else: 
         path_yaml = Path(path_yaml)
