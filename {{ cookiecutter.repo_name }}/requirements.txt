@@ -1,0 +1,7 @@
+pytest
+awscli
+flake8
+jupyter
+coverage
+coloredlogs
+versioneer

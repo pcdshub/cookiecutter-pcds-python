@@ -1,0 +1,90 @@
+# Logging yaml file for the HXRSND
+
+# This logging setup will print all 'info' level messages to the console
+# unchanged so it replaces print. In the background there are handlers for each
+# of the log levels that saves the messages to separate log files.
+
+version: 1
+disable_existing_loggers: false
+
+
+# Define two formatters, one for the console and one for the the log files. The
+# reason for simply printing a message is to replace 'print' with logger.info
+# that way it will also get logged to a file.
+formatters:
+    stream:
+        format: "%(message)s"
+    file:
+        format: "%(asctime)s - %(process)d - %(filename)s:%(lineno)4s - %(funcName)s():    %(levelname)-8s %(message)4s"
+        datefmt: '%Y-%m-%d %H:%M:%S'
+
+# There are handlers for the console stream and logging to a file for each of
+# the log levels.
+handlers:
+    console:
+        class: logging.StreamHandler
+        level: INFO
+        formatter: stream
+        stream: ext://sys.stdout
+
+    debug_file_handler:
+        class: hxrsnd.utils.RotatingFileHandlerRelativePath
+        level: DEBUG
+        formatter: file
+        filename: ../logs/debug.log
+        maxBytes: 20971520 # 20MB
+        backupCount: 10
+        mode: a
+        delay: 0
+
+    info_file_handler:
+        class: hxrsnd.utils.RotatingFileHandlerRelativePath
+        level: INFO
+        formatter: file
+        filename: ../logs/info.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 10
+        mode: a
+        delay: 0
+        
+    warn_file_handler:
+        class: hxrsnd.utils.RotatingFileHandlerRelativePath
+        level: WARN
+        formatter: file
+        filename: ../logs/warn.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 10
+        mode: a
+        delay: 0
+
+    error_file_handler:
+        class: hxrsnd.utils.RotatingFileHandlerRelativePath
+        level: ERROR
+        formatter: file
+        filename: ../logs/errors.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 10
+        mode: a
+        delay: 0
+
+    critical_file_handler:
+        class: hxrsnd.utils.RotatingFileHandlerRelativePath
+        level: CRITICAL
+        formatter: file
+        filename: ../logs/critical.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 10
+        mode: a
+        delay: 0
+
+# Root logger sees all the handlers, the hxrsnd logger only has the console
+root:
+    level: DEBUG
+    handlers: [console, info_file_handler, error_file_handler, critical_file_handler, debug_file_handler, warn_file_handler]
+    propogate: no
+    
+loggers:
+    <hxrsnd>:
+        level: INFO
+        handlers: [console]
+        propogate: no

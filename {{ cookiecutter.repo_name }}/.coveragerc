@@ -1,0 +1,11 @@
+[run]
+source =
+    {{ cookiecutter.import_name }}
+[report]
+omit =
+    #versioning
+    .*version.*
+    *_version.py
+    #tests
+    *test*
+    {{ cookiecutter.import_name }}/tests/*
