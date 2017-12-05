@@ -1,4 +1,4 @@
-# Logging yaml file for the HXRSND
+# Logging yaml file for the {{ cookiecutter.repo_name }}
 
 # This logging setup will print all 'info' level messages to the console
 # unchanged so it replaces print. In the background there are handlers for each
@@ -6,7 +6,6 @@
 
 version: 1
 disable_existing_loggers: false
-
 
 # Define two formatters, one for the console and one for the the log files. The
 # reason for simply printing a message is to replace 'print' with logger.info
@@ -28,7 +27,7 @@ handlers:
         stream: ext://sys.stdout
 
     debug_file_handler:
-        class: hxrsnd.utils.RotatingFileHandlerRelativePath
+        class: {{ cookiecutter.import_name }}.utils.RotatingFileHandlerRelativePath
         level: DEBUG
         formatter: file
         filename: ../logs/debug.log
@@ -38,7 +37,7 @@ handlers:
         delay: 0
 
     info_file_handler:
-        class: hxrsnd.utils.RotatingFileHandlerRelativePath
+        class: {{ cookiecutter.import_name }}.utils.RotatingFileHandlerRelativePath
         level: INFO
         formatter: file
         filename: ../logs/info.log
@@ -48,7 +47,7 @@ handlers:
         delay: 0
         
     warn_file_handler:
-        class: hxrsnd.utils.RotatingFileHandlerRelativePath
+        class: {{ cookiecutter.import_name }}.utils.RotatingFileHandlerRelativePath
         level: WARN
         formatter: file
         filename: ../logs/warn.log
@@ -58,7 +57,7 @@ handlers:
         delay: 0
 
     error_file_handler:
-        class: hxrsnd.utils.RotatingFileHandlerRelativePath
+        class: {{ cookiecutter.import_name }}.utils.RotatingFileHandlerRelativePath
         level: ERROR
         formatter: file
         filename: ../logs/errors.log
@@ -68,7 +67,7 @@ handlers:
         delay: 0
 
     critical_file_handler:
-        class: hxrsnd.utils.RotatingFileHandlerRelativePath
+        class: {{ cookiecutter.import_name }}.utils.RotatingFileHandlerRelativePath
         level: CRITICAL
         formatter: file
         filename: ../logs/critical.log
@@ -77,14 +76,14 @@ handlers:
         mode: a
         delay: 0
 
-# Root logger sees all the handlers, the hxrsnd logger only has the console
+# Root logger sees all the handlers, the {{ cookiecutter.import_name }} logger only has the console
 root:
     level: DEBUG
     handlers: [console, info_file_handler, error_file_handler, critical_file_handler, debug_file_handler, warn_file_handler]
     propogate: no
     
 loggers:
-    <hxrsnd>:
+    <{{ cookiecutter.import_name }}>:
         level: INFO
         handlers: [console]
         propogate: no
