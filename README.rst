@@ -21,7 +21,6 @@ Requirements for the Template
 
   $ pip install cookiecutter
 
-
 or ::
 
   $ conda install cookiecutter -c conda-forge
@@ -34,9 +33,22 @@ If using for the first time or in need of a new clone: ::
 
   $ cookiecutter https://github.com/pcdshub/cookiecutter-pcds-python
 
+or ::
+
+  $ cookiecutter gh:pcdshub/cookiecutter-pcds-python
+
 Otherwise: ::
 
   $ cookiecutter cookiecutter-pcds-python
+
+
+Configuring a New Project
+-------------------------
+
+To begin using versioneer, activate an environment with versioneer installed
+and run this command. ::
+  
+  $ versioneer install
 
 
 Resulting Directory Structure

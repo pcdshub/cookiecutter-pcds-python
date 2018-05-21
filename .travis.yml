@@ -1,7 +1,6 @@
 language: python
 python:
   # We don't actually use the Travis Python, but this keeps it organized.
-  - "3.5"
   - "3.6"
 
 install:
@@ -20,9 +19,16 @@ install:
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION coverage pip wheel pytest
   # Launch Conda environment
   - source activate test-environment
+  # install requirements for 
+  - pip install coverage codecovg
   # Install the requirements
   - pip install -r requirements.txt
   - pip install -r "{{ cookiecutter.repo_name }}/requirements.txt"
 
 script:
-  - python run_tests.py
+  - coverage run_tests.py
+  - flake8 {{ cookiecutter.repo_name }}
+
+after_success:
+  - coverage report -m
+  - codecov
