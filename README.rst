@@ -50,6 +50,18 @@ and run this command. ::
   
   $ versioneer install
 
+To begin using doctr to automatically push your documentation to github first
+enable the `use_doctr` setting during cookiecutter setup. Once setup has
+completed, activate an environment with doctr installed and run this command. ::
+
+  $ doctr configure  
+
+After entering your information, add the secure key to env/global/secure in the
+.travis.yml file. In the settings page on the github repository, make sure to
+enable pages on the `gh-pages` branch. **Note:** branch protection should be
+enabled for all branches in the repository hosting the documentation as the key
+could potentially allow others to push to this repository. 
+
 
 Resulting Directory Structure
 -----------------------------

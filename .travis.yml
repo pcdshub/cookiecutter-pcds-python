@@ -1,4 +1,14 @@
 language: python
+sudo: false
+
+env: 
+   global:
+      - OFFICIAL_REPO="{{ official_repo }}"
+      {% if use_doctr %}
+      - secure: ""
+      {% endif %}
+
+
 python:
   # We don't actually use the Travis Python, but this keeps it organized.
   - "3.6"
@@ -16,11 +26,11 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
   # Grab all dependencies
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION coverage pip wheel pytest
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pip wheel pytest
   # Launch Conda environment
   - source activate test-environment
   # install requirements for 
-  - pip install coverage codecovg
+  - pip install coverage codecov
   # Install the requirements
   - pip install -r requirements.txt
   - pip install -r "{{ cookiecutter.repo_name }}/requirements.txt"
@@ -28,6 +38,20 @@ install:
 script:
   - coverage run_tests.py
   - flake8 {{ cookiecutter.repo_name }}
+  - set -e
+  {% if use_doctr %}
+  - |
+    if [[ -n "$DOCTR_DEPLOY_ENCRYPTION_KEY" && $BUILD ]]; then
+      # Create HTML documentation  
+      pushd docs
+      sphinx-autogen -o source/generated source/*.rst
+      make html
+      popd
+      #Publish docs.
+      doctr deploy . --built-docs docs/build/html --deploy-branch-name gh-pages --command "touch .nojekyll; git add .nojekyll"
+    fi
+   {% endif %}
+
 
 after_success:
   - coverage report -m

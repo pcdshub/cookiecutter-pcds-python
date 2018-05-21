@@ -4,5 +4,7 @@
     "import_name": "src",
     "author_name": "SLAC National Accelerator Laboratories",
     "description": "A short description of the project.",
-    "python_interpreter": ["python", "python3"]
+    "use_doctr": ["yes","no"],
+    "official_repo": "",
+    "python_interpreter": ["python3", "python"]
 }
