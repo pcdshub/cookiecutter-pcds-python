@@ -57,9 +57,6 @@ if __name__ == '__main__':
         args.append('--ignore=tests')
         
     # Set defautls for the test
-    extra_content = {
-       "auto_git_setup": "no",
-    }
 
     # Run the tests in the project
     out_dir = Path('data-project')
@@ -68,7 +65,7 @@ if __name__ == '__main__':
     else:
         CCDS_ROOT = os.path.abspath(os.path.join(__file__, os.pardir))
         main.cookiecutter(CCDS_ROOT, no_input=True,
-                          extra_context=extra_content,
+                          extra_context={},
                           output_dir=str(out_dir))
 
     # Run the tests

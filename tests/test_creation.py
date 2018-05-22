@@ -25,9 +25,6 @@ CC_JSON = sjson.load(open(str(Path(CCDSA_ROOT) / "cookiecutter.json")))
 @pytest.fixture(scope='function')
 def default_baked_project(tmpdir):
     out_dir = str(tmpdir.mkdir('data-project'))
-    extra_content = {
-       "auto_git_setup": "no",
-    }
 
     main.cookiecutter(
         CCDSA_ROOT,
