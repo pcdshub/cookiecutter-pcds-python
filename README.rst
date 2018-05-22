@@ -45,20 +45,24 @@ Otherwise: ::
 Configuring a New Project
 -------------------------
 
-To begin using versioneer, activate an environment with versioneer installed
-and run this command. ::
+To manually setup versioneer, activate an environment with versioneer installed
+and run the following command and commit the new files it makes. ::
   
   $ versioneer install
 
-To begin using doctr to automatically push your documentation to github first
-enable the `use_doctr` setting during cookiecutter setup. Once setup has
-completed, activate an environment with doctr installed and run this command. ::
+Doctr pushes automatically generated docs from travis to a github pages site.
+To begin using doctr first enable the `use_doctr` setting during cookiecutter
+setup and push the newly created repository to github.  In the settings page on
+the github repository, make sure to enable pages on the `gh-pages` branch. Make
+sure travis has recognized and been set to process your new repository. Once
+setup has completed, activate an environment with doctr installed and run this
+command. ::
 
   $ doctr configure  
 
 After entering your information, add the secure key to env/global/secure in the
 .travis.yml file. In the settings page on the github repository, make sure to
-enable pages on the `gh-pages` branch. **Note:** branch protection should be
+enable pages on the `gh-pages` branch. **Note:** Branch protection should be
 enabled for all branches in the repository hosting the documentation as the key
 could potentially allow others to push to this repository. 
 

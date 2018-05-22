@@ -1,7 +1,17 @@
 language: python
+sudo: false
+
+env: 
+   global:
+      - OFFICIAL_REPO="{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}"
+      - BUILD_DOCS=1
+      {% if cookiecutter.use_doctr %}
+      - secure: ""
+      {% endif %}
+
+
 python:
   # We don't actually use the Travis Python, but this keeps it organized.
-  - "3.5"
   - "3.6"
 
 install:
@@ -17,18 +27,31 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
   #Grab all dependencies
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION coverage pip wheel pytest
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pip wheel pytest
   #Launch Conda environment
   - source activate test-environment
   #Install pedl
-  - pip install codecov
+  - pip install codecov coverage
   - pip install -r requirements.txt
   #Install
   - pip install -e .
 
 script:
   - coverage run run_tests.py
-  - coverage report -m
+  - flake8 {{ cookiecutter.repo_name }}
+  - set -e
+  {% if cookiecutter.use_doctr %}
+  - |
+    if [[ -n "$DOCTR_DEPLOY_ENCRYPTION_KEY_{{ cookiecutter.github_repo_group.upper().replace('-','_') }}_{{ cookiecutter.repo_name.upper() }}" && $BUILD_DOCS ]]; then
+      # Create HTML documentation  
+      pushd docs
+      make html
+      popd
+      #Publish docs.
+      doctr deploy . --built-docs docs/build/html --deploy-branch-name gh-pages --command "touch .nojekyll; git add .nojekyll"
+    fi
+   {% endif %}
 
 after_success:
+  - coverage report -m
   - codecov
