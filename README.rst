@@ -5,9 +5,9 @@ PCDS Python Cookiecutter
 .. image:: https://travis-ci.org/pcdshub/cookiecutter-pcds-python.svg?branch=master
     :target: https://travis-ci.org/pcdshub/cookiecutter-pcds-python
 
-A project template for python projects in the Photon Controls and Data Systems Department (PCDS). However, in principle, there is no reason it cannot be used for projects outside PCDS.
-
-To learn more about cookiecutter:
+A project template for python projects in the Photon Controls and Data Systems
+Department (PCDS). However, in principle, there is no reason it cannot be used
+for projects outside PCDS. To learn more about cookiecutter:
 
 - Project Homepage: https://cookiecutter.readthedocs.io/en/latest/ 
 - Github: https://github.com/audreyr/cookiecutter
@@ -51,12 +51,12 @@ and run the following command and commit the new files it makes. ::
   $ versioneer install
 
 Doctr pushes automatically generated docs from travis to a github pages site.
-To begin using doctr first enable the `use_doctr` setting during cookiecutter
-setup and push the newly created repository to github.  In the settings page on
-the github repository, make sure to enable pages on the `gh-pages` branch. Make
-sure travis has recognized and been set to process your new repository. Once
-setup has completed, activate an environment with doctr installed and run this
-command. ::
+To manually begin using doctr first enable the `use_doctr` setting during
+cookiecutter setup and push the newly created repository to github.  In the
+settings page on the github repository, make sure to enable pages on the
+`gh-pages` branch. Make sure travis has recognized and been set to process your
+new repository. Once setup has completed, activate an environment with doctr
+installed and run this command. ::
 
   $ doctr configure  
 

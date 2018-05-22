@@ -10,6 +10,13 @@ Welcome to {{ cookiecutter.project_name }}'s documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Links
+   :hidden:
+
+   Github Repository <https://github.com/{{ cookiecutter.github_repo_group }}/{{ repo_name }}>
+
 
 
 Indices and tables

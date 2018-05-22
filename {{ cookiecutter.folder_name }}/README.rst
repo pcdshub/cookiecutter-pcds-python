@@ -4,6 +4,12 @@
 
 {{ cookiecutter.description }}
 
+Documentation
+-------------
+
+Sphinx generated documentation for this project can be found here:
+https://{{ cookiecutter.github_repo_group }}.github.io/{{ cookiecutter.repo_name}}/
+
 
 Requirements
 ------------
