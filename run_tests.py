@@ -18,7 +18,7 @@ from cookiecutter import main
 if __name__ == '__main__':
     # Show output results from every test function
     # Show the message output for skipped and expected failures
-    args = ['-v', '-vrxs', '--ignore={{ cookiecutter.repo_name }}']
+    args = ['-v', '-vrxs', '--ignore={{ cookiecutter.folder_name }}']
 
     # Add extra arguments
     if len(sys.argv) >1:
@@ -56,13 +56,19 @@ if __name__ == '__main__':
         args.remove('--no-template')
         args.append('--ignore=tests')
         
+    # Set defautls for the test
+    extra_content = {
+       "auto_git_setup": "no",
+    }
+
     # Run the tests in the project
     out_dir = Path('data-project')
     if '--no-project' in args:
         args.remove('--no-project')
     else:
         CCDS_ROOT = os.path.abspath(os.path.join(__file__, os.pardir))
-        main.cookiecutter(CCDS_ROOT, no_input=True, extra_context={},
+        main.cookiecutter(CCDS_ROOT, no_input=True,
+                          extra_context=extra_content,
                           output_dir=str(out_dir))
 
     # Run the tests

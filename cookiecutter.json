@@ -6,9 +6,9 @@
     "author_name": "SLAC National Accelerator Laboratories",
     "description": "A short description of the project.",
     "python_interpreter": ["python3", "python"],
-    "auto_git_setup": ["yes","no"],
+    "auto_git_setup": ["no","yes"],
     "github_repo_group": "{{ cookiecutter.author_name }}",
-    "use_doctr": ["yes","no"],
+    "use_doctr": ["no","yes"],
     "auto_versioneer_setup": ["no","yes"],
     "auto_doctr_setup": ["no","yes"]
 }
