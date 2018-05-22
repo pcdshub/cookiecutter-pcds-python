@@ -31,7 +31,7 @@ install:
   #Launch Conda environment
   - source activate test-environment
   #Install pedl
-  - pip install codecov coverage
+  - pip install codecov
   - pip install -r requirements.txt
   #Install
   - pip install -e .

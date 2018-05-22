@@ -1,6 +1,7 @@
 awscli
 coloredlogs
 coverage
+doctr
 flake8
 jupyter
 pytest
