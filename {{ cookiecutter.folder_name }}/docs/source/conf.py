@@ -21,8 +21,8 @@ sys.path.insert(0,module_path)
 # -- Project information -----------------------------------------------------
 
 project = '{{ cookiecutter.project_name }}'
-copyright = '2018, {{ cookiecutter.autor_name }}'
-author = '{{ cookiecutter.autor_name }}'
+copyright = '2018, {{ cookiecutter.author_name }}'
+author = '{{ cookiecutter.author_name }}'
 
 # The short X.Y version
 version = ''

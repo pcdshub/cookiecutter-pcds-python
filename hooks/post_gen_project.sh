@@ -7,4 +7,7 @@ git remote add upstream https://github.com/{{ cookiecutter.github_repo_group }}/
 {% if cookiecutter.auto_versioneer_setup %}
 versioneer install
 {% endif %}
+{% if cookiecutter.auto_doctr_setup %}
+doctr configure 
+{% endif %}
 
