@@ -1,10 +1,10 @@
 {
     "project_name": "project_name",
-    "folder_name": "{{ cookiecutter.repo_name }}",
     "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+    "author_name": "SLAC National Accelerator Laboratories",
+    "folder_name": "{{ cookiecutter.repo_name }}",
     "github_repo_group": "{{ cookiecutter.author_name }}",
     "import_name": "src",
-    "author_name": "SLAC National Accelerator Laboratories",
     "description": "A short description of the project.",
     "python_interpreter": ["python3", "python"],
     "auto_git_setup": ["no","yes"],

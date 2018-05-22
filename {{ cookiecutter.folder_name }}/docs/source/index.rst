@@ -15,7 +15,7 @@ Welcome to {{ cookiecutter.project_name }}'s documentation!
    :caption: Links
    :hidden:
 
-   Github Repository <https://github.com/{{ cookiecutter.github_repo_group }}/{{ repo_name }}>
+   Github Repository <https://github.com/{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}>
 
 
 
