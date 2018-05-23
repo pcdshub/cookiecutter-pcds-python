@@ -4,4 +4,3 @@ simplejson
 sphinx
 sphinx_rtd_theme
 versioneer
-pytest

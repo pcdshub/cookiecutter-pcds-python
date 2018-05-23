@@ -56,8 +56,6 @@ if __name__ == '__main__':
         args.remove('--no-template')
         args.append('--ignore=tests')
         
-    # Set defautls for the test
-
     # Run the tests in the project
     out_dir = Path('data-project')
     if '--no-project' in args:

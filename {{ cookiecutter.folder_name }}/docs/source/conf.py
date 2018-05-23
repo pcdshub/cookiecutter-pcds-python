@@ -21,7 +21,7 @@ sys.path.insert(0,module_path)
 # -- Project information -----------------------------------------------------
 
 project = '{{ cookiecutter.project_name }}'
-copyright = '2018, {{ cookiecutter.author_name }}'
+copyright = ('2018, {}'.format({{ cookiecutter.author_name }}))
 author = '{{ cookiecutter.author_name }}'
 
 # The short X.Y version
@@ -50,6 +50,9 @@ extensions = [
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+autosummary_generate = True
+
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
