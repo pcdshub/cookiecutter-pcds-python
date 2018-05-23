@@ -18,7 +18,9 @@ from cookiecutter import main
 if __name__ == '__main__':
     # Show output results from every test function
     # Show the message output for skipped and expected failures
-    args = ['-v', '-vrxs', '--ignore={{ cookiecutter.folder_name }}']
+    args = ['-v', '-vrxs', '--ignore={{ cookiecutter.folder_name }}',
+        '--ignore=data-project'
+    ]
 
     # Add extra arguments
     if len(sys.argv) >1:
