@@ -1,0 +1,57 @@
+language: python
+sudo: false
+
+env: 
+   global:
+      - OFFICIAL_REPO="{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}"
+      - BUILD_DOCS=1
+      {% if cookiecutter.use_doctr == "yes" %}
+      - secure: ""
+      {% endif %}
+
+
+python:
+  # We don't actually use the Travis Python, but this keeps it organized.
+  - "3.6"
+
+install:
+  - sudo apt-get update
+  # We do this conditionally because it saves us some downloading if the
+  # version is the same.
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+  #Grab all dependencies
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pip wheel pytest
+  #Launch Conda environment
+  - source activate test-environment
+  #Install pedl
+  - pip install codecov
+  - pip install -r requirements.txt
+  #Install
+  - pip install -e .
+
+script:
+  - coverage run run_tests.py
+  - flake8 {{ cookiecutter.repo_name }}
+  - set -e
+  {% if cookiecutter.use_doctr == "yes" %}
+  - |
+    if [[ -n "$DOCTR_DEPLOY_ENCRYPTION_KEY_{{ cookiecutter.github_repo_group.upper().replace('-','_') }}_{{ cookiecutter.repo_name.upper() }}" && $BUILD_DOCS ]]; then
+      # Create HTML documentation  
+      pushd docs
+      make html
+      popd
+      #Publish docs.
+      doctr deploy . --built-docs docs/build/html --deploy-branch-name gh-pages --command "touch .nojekyll; git add .nojekyll"
+    fi
+   {% endif %}
+
+after_success:
+  - coverage report -m
+  - codecov

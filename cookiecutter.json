@@ -1,8 +1,14 @@
 {
     "project_name": "project_name",
     "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
-    "import_name": "src",
     "author_name": "SLAC National Accelerator Laboratories",
+    "folder_name": "{{ cookiecutter.repo_name }}",
+    "github_repo_group": "{{ cookiecutter.author_name }}",
+    "import_name": "src",
     "description": "A short description of the project.",
-    "python_interpreter": ["python", "python3"]
+    "python_interpreter": ["python3", "python"],
+    "auto_git_setup": ["no","yes"],
+    "use_doctr": ["no","yes"],
+    "auto_versioneer_setup": ["no","yes"],
+    "auto_doctr_setup": ["no","yes"]
 }

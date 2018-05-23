@@ -19,7 +19,7 @@ CCDSA_ROOT = os.path.abspath(
                     os.pardir
                 )
             )
-TEMPLATE_DIR = Path(CCDSA_ROOT) / "{{ cookiecutter.repo_name }}"
+TEMPLATE_DIR = Path(CCDSA_ROOT) / "{{ cookiecutter.folder_name }}"
 CC_JSON = sjson.load(open(str(Path(CCDSA_ROOT) / "cookiecutter.json")))
 
 @pytest.fixture(scope='function')
