@@ -56,8 +56,8 @@ install:
   - pip install -e .
 
 script:
-  - coverage run run_tests.py
   - flake8 {{ cookiecutter.repo_name }}
+  - coverage run run_tests.py
   - set -e
   {% if cookiecutter.use_doctr == "yes" %}
   - |
