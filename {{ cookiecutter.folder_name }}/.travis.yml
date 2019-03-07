@@ -1,5 +1,6 @@
 language: python
 sudo: false
+dist: xenial
 
 env: 
    global:
@@ -9,10 +10,28 @@ env:
       - secure: ""
       {% endif %}
 
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.ccache  # https://github.com/travis-ci/travis-ci/issues/5853
 
-python:
-  # We don't actually use the Travis Python, but this keeps it organized.
-  - "3.6"
+matrix:
+  include:
+    - python: 3.6
+      env:
+        - CONDA_UPLOAD=1
+        - CONDA_CHANNEL=pcds-tag
+    - python: 3.6
+      env: CONDA_CHANNEL=pcds-dev
+    - python: 3.7
+      env: CONDA_CHANNEL=pcds-tag
+    - python: 3.7
+      env: CONDA_CHANNEL=pcds-dev
+  allow_failures:
+    - python: 3.7
+      env: CONDA_CHANNEL=pcds-tag
+    - python: 3.7
+      env: CONDA_CHANNEL=pcds-dev
 
 install:
   - sudo apt-get update
