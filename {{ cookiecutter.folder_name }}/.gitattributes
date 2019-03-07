@@ -1,0 +1,1 @@
+{{ cookiecutter.import_name }}/_version.py export-subst
