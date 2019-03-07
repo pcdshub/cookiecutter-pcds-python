@@ -7,7 +7,7 @@ min_version = (3, 5)
 
 if sys.version_info < min_version:
     error = """
-{{ cookiecutter.package_dist_name }} does not support Python {0}.{1}.
+{{ cookiecutter.repo_name }} does not support Python {0}.{1}.
 Python {2}.{3} and above is required. Check your Python version like so:
 
 python3 --version
@@ -56,7 +56,7 @@ setup(
         },
     include_package_data=True,
     package_data={
-        '{{ cookiecutter.package_dir_name }}': [
+        '{{ cookiecutter.import_name }}': [
             # When adding files here, remember to update MANIFEST.in as well,
             # or else they will not be included in the distribution on PyPI!
             # 'path/to/data_file',
