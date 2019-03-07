@@ -31,6 +31,14 @@ with open(path.join(here, 'requirements.txt')) as requirements_file:
                     if not line.startswith('#')]
 
 
+git_requirements = [r for r in requirements if r.startswith('git+')]
+if git_requirements:
+    print('User must install the following packages manually:')
+    print()
+    print("\n".join(f'* {r}' for r in git_requirements))
+    print()
+
+
 setup(
     name='{{ cookiecutter.repo_name }}',
     version=versioneer.get_version(),
