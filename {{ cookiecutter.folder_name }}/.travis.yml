@@ -20,39 +20,38 @@ matrix:
     - python: 3.6
       env:
         - CONDA_UPLOAD=1
-        - CONDA_CHANNEL=pcds-tag
+        - PCDS_CHANNEL=pcds-tag
     - python: 3.6
-      env: CONDA_CHANNEL=pcds-dev
+      env: PCDS_CHANNEL=pcds-dev
     - python: 3.7
-      env: CONDA_CHANNEL=pcds-tag
+      env: PCDS_CHANNEL=pcds-tag
     - python: 3.7
-      env: CONDA_CHANNEL=pcds-dev
+      env: PCDS_CHANNEL=pcds-dev
   allow_failures:
     - python: 3.7
-      env: CONDA_CHANNEL=pcds-tag
+      env: PCDS_CHANNEL=pcds-tag
     - python: 3.7
-      env: CONDA_CHANNEL=pcds-dev
+      env: PCDS_CHANNEL=pcds-dev
 
 install:
-  - sudo apt-get update
-  # We do this conditionally because it saves us some downloading if the
-  # version is the same.
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
+  - conda update -q conda conda-build
+  - conda config --append channels $PCDS_CHANNEL
+  - conda config --append channels conda-forge
   # Useful for debugging any issues with conda
   - conda info -a
-  #Grab all dependencies
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pip wheel pytest
-  #Launch Conda environment
+  # Test conda build
+  - conda build -q conda-recipe --python=$TRAVIS_PYTHON_VERSION --output-folder bld-dir
+  - conda config --add channels "file://`pwd`/bld-dir"
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION {{ cookiecutter.repo_name }} --file requirements-dev.txt
   - source activate test-environment
-  #Install pedl
+
   - pip install codecov
   - pip install -r requirements.txt
-  #Install
   - pip install -e .
 
 script:
@@ -74,3 +73,14 @@ script:
 after_success:
   - coverage report -m
   - codecov
+
+  - |
+    if [[ $TRAVIS_PULL_REQUEST == false && $TRAVIS_REPO_SLUG == $OFFICIAL_REPO && "$CONDA_UPLOAD" == "1" ]]; then
+      if [[ $TRAVIS_BRANCH == $TRAVIS_TAG  && $TRAVIS_TAG != '' && $PCDS_CHANNEL == 'pcds-tag' ]]; then
+        export ANACONDA_API_TOKEN=$CONDA_UPLOAD_TOKEN_TAG
+        anaconda upload bld-dir/linux-64/*.tar.bz2
+      elif [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_TAG == '' && $PCDS_CHANNEL == 'pcds-dev' ]]; then
+        export ANACONDA_API_TOKEN=$CONDA_UPLOAD_TOKEN_DEV
+        anaconda upload bld-dir/linux-64/*.tar.bz2
+      fi
+    fi
