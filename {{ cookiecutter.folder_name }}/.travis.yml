@@ -51,10 +51,10 @@ install:
   # Test conda build
   - conda build -q conda-recipe --python=$TRAVIS_PYTHON_VERSION --output-folder bld-dir
   - conda config --add channels "file://`pwd`/bld-dir"
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION {{ cookiecutter.repo_name }} --file dev-requirements.txt
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION {{ cookiecutter.repo_name }} --file requirements.txt
   - source activate test-environment
 
-  - pip install -Ur requirements.txt
+  - pip install -Ur dev-requirements.txt
   - pip install -e .
 
 {% if cookiecutter.use_x11_on_travis == "yes" %}
@@ -79,7 +79,6 @@ script:
   - |
     if [[ -n "$DOCTR_DEPLOY_ENCRYPTION_KEY_{{ cookiecutter.github_repo_group.upper().replace('-','_') }}_{{ cookiecutter.repo_name.upper() }}" && $BUILD_DOCS ]]; then
       # Create HTML documentation  
-      pip install -Ur docs-requirements.txt
       pushd docs
       make html
       popd
