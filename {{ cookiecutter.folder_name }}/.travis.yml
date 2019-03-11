@@ -38,23 +38,32 @@ matrix:
       env: PCDS_CHANNEL=pcds-dev
 
 install:
-  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+  # Install and configure miniconda
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda conda-build
+
+  # Ensure all packages are up-to-date
+  - conda update -q conda
+  - conda install conda-build anaconda-client
   - conda config --append channels $PCDS_CHANNEL
   - conda config --append channels conda-forge
-  # Useful for debugging any issues with conda
   - conda info -a
-  # Test conda build
+
+  # Build the conda recipe for this package
   - conda build -q conda-recipe --python=$TRAVIS_PYTHON_VERSION --output-folder bld-dir
   - conda config --add channels "file://`pwd`/bld-dir"
+
+  # Create the test environment
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION {{ cookiecutter.repo_name }} --file requirements.txt
+  - source deactivate
   - source activate test-environment
 
+  # Install additional development requirements
   - pip install -Ur dev-requirements.txt
+  # Install the package
   - pip install -e .
 
 {% if cookiecutter.use_x11_on_travis == "yes" %}
