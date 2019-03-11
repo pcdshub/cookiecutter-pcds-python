@@ -1,0 +1,32 @@
+{% raw %}
+{% set data = load_setup_py_data() %}
+{% endraw %}
+
+package:
+    name    : {{ cookiecutter.import_name }}
+{% raw %}
+    version : {{ data.get('version') }}
+{% endraw %}
+
+source:
+    path: ..
+
+requirements:
+    build:
+      - python
+      - setuptools
+
+    run:
+      - python
+
+test:
+    imports:
+      - {{ cookiecutter.import_name }}
+
+    requires:
+      - pytest
+
+about:
+  home: https://github.com/{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}
+  license: SLAC Open License
+  summary: {{ cookiecutter.description }}
