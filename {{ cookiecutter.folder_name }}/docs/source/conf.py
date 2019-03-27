@@ -21,7 +21,7 @@ sys.path.insert(0,module_path)
 # -- Project information -----------------------------------------------------
 
 project = '{{ cookiecutter.project_name }}'
-copyright = ('2018, {}'.format({{ cookiecutter.author_name }}))
+copyright = '2018, {{ cookiecutter.author_name }}'
 author = '{{ cookiecutter.author_name }}'
 
 # The short X.Y version
@@ -138,8 +138,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'cookiecutterproject_name.tex', '\\{\\{ cookiecutter.project\\_name \\}\\} Documentation',
-     '\\{\\{ cookiecutter.autor\\_name \\}\\}', 'manual'),
+    (master_doc, '{{ cookiecutter.project_name }}.tex', '{{ cookiecutter.project_name }} Documentation',
+     '{{ cookiecutter.autor_name }}', 'manual'),
 ]
 
 
@@ -148,7 +148,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'cookiecutterproject_name', '{{ cookiecutter.project_name }} Documentation',
+    (master_doc, '{{ cookiecutter.project_name }}', '{{ cookiecutter.project_name }} Documentation',
      [author], 1)
 ]
 
@@ -159,8 +159,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'cookiecutterproject_name', '{{ cookiecutter.project_name }} Documentation',
-     author, 'cookiecutterproject_name', 'One line description of project.',
+    (master_doc, '{{ cookiecutter.project_name }}', '{{ cookiecutter.project_name }} Documentation',
+     author, '{{ cookiecutter.project_name }}', 'One line description of project.',
      'Miscellaneous'),
 ]
 
