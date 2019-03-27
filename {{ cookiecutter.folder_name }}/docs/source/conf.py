@@ -142,7 +142,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, '{{ cookiecutter.project_name }}.tex', '{{ cookiecutter.project_name }} Documentation',
-     '{{ cookiecutter.autor_name }}', 'manual'),
+     '{{ cookiecutter.author_name }}', 'manual'),
 ]
 
 
