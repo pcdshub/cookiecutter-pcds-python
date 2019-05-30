@@ -61,11 +61,11 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.repo_name }}` for loc
 
     $ git clone git@github.com:your_name_here/{{ cookiecutter.repo_name }}.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+3. Install your local copy into a new conda environment. Assuming you have conda installed, this is how you set up your fork for local development::
 
-    $ mkvirtualenv {{ cookiecutter.repo_name }}
+    $ conda create -n {{ cookiecutter.repo_name }} python=3.7
     $ cd {{ cookiecutter.repo_name }}/
-    $ python setup.py develop
+    $ pip install -e .
 
 4. Create a branch for local development::
 
