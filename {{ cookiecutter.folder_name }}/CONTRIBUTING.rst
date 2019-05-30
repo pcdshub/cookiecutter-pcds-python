@@ -73,21 +73,21 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.repo_name }}` for loc
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
+5. When you're done making changes, check that your changes pass flake8::
 
-    $ flake8 {{ cookiecutter.import_name }} tests
-    $ python setup.py test
-    $ tox
+    $ flake8 {{ cookiecutter.import_name }}
 
-   To get flake8 and tox, just pip install them into your virtualenv.
+6. Add new tests for any additional functionality or bugs you may have discovered.  And, of course, be sure that all previous tests still pass by running::
 
-6. Commit your changes and push your branch to GitHub::
+    $ python run_tests.py -v
+
+7. Commit your changes and push your branch to GitHub::
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
     $ git push origin name-of-your-bugfix-or-feature
 
-7. Submit a pull request through the GitHub website.
+8. Submit a pull request through the GitHub website.
 
 Pull Request Guidelines
 -----------------------
@@ -101,4 +101,3 @@ Before you submit a pull request, check that it meets these guidelines:
 3. The pull request should work for Python 3.5 and up. Check
    https://travis-ci.org/{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}/pull_requests
    and make sure that the tests pass for all supported Python versions.
-
