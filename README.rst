@@ -88,7 +88,7 @@ The directory structure of your new project looks like this:
   │   
   ├── docs                 <- A default Sphinx project; see sphinx-doc.org for details
   │   
-  ├── docs-requirements    <- Requirements to make the sphinx documentation
+  ├── dev-requirements.txt <- Requirements to develop, make the sphinx documentation
   │   
   ├── logs                 <- Directory for log files and is not version controlled
   │  
@@ -106,6 +106,8 @@ The directory structure of your new project looks like this:
   │
   ├── Makefile             <- Makefile for the project
   │
+  ├── MANIFEST.in          <- setup.py manifest of files
+  │
   ├── README.md            <- The top-level README for developers using this project
   │
   ├── requirements.txt     <- The requirements file for reproducing the analysis environment, e.g.
@@ -122,7 +124,8 @@ Installing Development Requirements
 -----------------------------------
 ::
 
-  $ pip install -r requirements.txt
+  $ pip install -Ur requirements.txt
+  $ pip install -Ur dev-requirements.txt
 
 Running the Tests
 -----------------

@@ -1,44 +1,87 @@
 language: python
+dist: xenial
+{% if cookiecutter.use_x11_on_travis == "yes" %}
+sudo: true
+{% else %}
 sudo: false
+{% endif %}
 
 env: 
    global:
       - OFFICIAL_REPO="{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}"
-      - BUILD_DOCS=1
       {% if cookiecutter.use_doctr == "yes" %}
       - secure: ""
       {% endif %}
 
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.ccache  # https://github.com/travis-ci/travis-ci/issues/5853
 
-python:
-  # We don't actually use the Travis Python, but this keeps it organized.
-  - "3.6"
+matrix:
+  include:
+    - python: 3.6
+      env:
+        - BUILD_DOCS=1
+        - PCDS_CHANNEL=pcds-tag
+    - python: 3.6
+      env: PCDS_CHANNEL=pcds-dev
+    - python: 3.7
+      env: PCDS_CHANNEL=pcds-tag
+    - python: 3.7
+      env: PCDS_CHANNEL=pcds-dev
+  allow_failures:
+    - python: 3.7
+      env: PCDS_CHANNEL=pcds-tag
+    - python: 3.7
+      env: PCDS_CHANNEL=pcds-dev
 
 install:
-  - sudo apt-get update
-  # We do this conditionally because it saves us some downloading if the
-  # version is the same.
-  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+  # Install and configure miniconda
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
+
+  # Ensure all packages are up-to-date
   - conda update -q conda
-  # Useful for debugging any issues with conda
+  - conda install conda-build anaconda-client
+  - conda config --append channels $PCDS_CHANNEL
+  - conda config --append channels conda-forge
   - conda info -a
-  #Grab all dependencies
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pip wheel pytest
-  #Launch Conda environment
+
+  # Build the conda recipe for this package
+  - conda build -q conda-recipe --python=$TRAVIS_PYTHON_VERSION --output-folder bld-dir
+  - conda config --add channels "file://`pwd`/bld-dir"
+
+  # Create the test environment
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION {{ cookiecutter.repo_name }} --file requirements.txt
+  - source deactivate
   - source activate test-environment
-  #Install pedl
-  - pip install codecov
-  - pip install -r requirements.txt
-  #Install
+
+  # Install additional development requirements
+  - pip install -Ur dev-requirements.txt
+  # Install the package
   - pip install -e .
 
+{% if cookiecutter.use_x11_on_travis == "yes" %}
+before_script:
+  - sudo apt-get update
+  # Install window manager
+  - sudo apt-get install -y xvfb herbstluftwm
+  # Taken from docs.travis-ci.com/user/gui-and-headless-browsers
+  - "export DISPLAY=:99.0"
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1920x1200x24 -ac +extension GLX +render -noreset"
+  - sleep 3 # give xvfb some time to start
+  # Run windows manager
+  - "herbstluftwm &"
+  - sleep 1
+{% endif %}
+
 script:
-  - coverage run run_tests.py
   - flake8 {{ cookiecutter.repo_name }}
+  - coverage run run_tests.py
   - set -e
   {% if cookiecutter.use_doctr == "yes" %}
   - |
@@ -55,3 +98,14 @@ script:
 after_success:
   - coverage report -m
   - codecov
+
+  - |
+    if [[ $TRAVIS_PULL_REQUEST == false && $TRAVIS_REPO_SLUG == $OFFICIAL_REPO ]]; then
+      if [[ $TRAVIS_BRANCH == $TRAVIS_TAG  && $TRAVIS_TAG != '' && $PCDS_CHANNEL == 'pcds-tag' ]]; then
+        export ANACONDA_API_TOKEN=$CONDA_UPLOAD_TOKEN_TAG
+        anaconda upload bld-dir/linux-64/*.tar.bz2
+      elif [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_TAG == '' && $PCDS_CHANNEL == 'pcds-dev' ]]; then
+        export ANACONDA_API_TOKEN=$CONDA_UPLOAD_TOKEN_DEV
+        anaconda upload bld-dir/linux-64/*.tar.bz2
+      fi
+    fi
