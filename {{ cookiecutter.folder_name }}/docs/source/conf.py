@@ -15,13 +15,17 @@
 import os
 import sys
 import sphinx_rtd_theme
-module_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),'../../')
-sys.path.insert(0,module_path)
+
+module_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                           '../../')
+sys.path.insert(0, module_path)
 
 # -- Project information -----------------------------------------------------
 
 project = '{{ cookiecutter.project_name }}'
-copyright = ('2018, {}'.format({{ cookiecutter.author_name }}))
+from datetime import datetime
+year = datetime.now().year
+copyright = '{{year}}, {{ cookiecutter.author_name }}'
 author = '{{ cookiecutter.author_name }}'
 
 # The short X.Y version
@@ -46,6 +50,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'numpydoc',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -138,8 +143,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'cookiecutterproject_name.tex', '\\{\\{ cookiecutter.project\\_name \\}\\} Documentation',
-     '\\{\\{ cookiecutter.autor\\_name \\}\\}', 'manual'),
+    (master_doc, '{{ cookiecutter.project_name }}.tex', '{{ cookiecutter.project_name }} Documentation',
+     '{{ cookiecutter.author_name }}', 'manual'),
 ]
 
 
@@ -148,7 +153,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'cookiecutterproject_name', '{{ cookiecutter.project_name }} Documentation',
+    (master_doc, '{{ cookiecutter.project_name }}', '{{ cookiecutter.project_name }} Documentation',
      [author], 1)
 ]
 
@@ -159,8 +164,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'cookiecutterproject_name', '{{ cookiecutter.project_name }} Documentation',
-     author, 'cookiecutterproject_name', 'One line description of project.',
+    (master_doc, '{{ cookiecutter.project_name }}', '{{ cookiecutter.project_name }} Documentation',
+     author, '{{ cookiecutter.project_name }}', 'One line description of project.',
      'Miscellaneous'),
 ]
 
