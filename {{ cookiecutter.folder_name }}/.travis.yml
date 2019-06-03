@@ -9,7 +9,6 @@ sudo: false
 env: 
    global:
       - OFFICIAL_REPO="{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}"
-      - BUILD_DOCS=1
       {% if cookiecutter.use_doctr == "yes" %}
       - secure: ""
       {% endif %}
@@ -23,7 +22,7 @@ matrix:
   include:
     - python: 3.6
       env:
-        - CONDA_UPLOAD=1
+        - BUILD_DOCS=1
         - PCDS_CHANNEL=pcds-tag
     - python: 3.6
       env: PCDS_CHANNEL=pcds-dev
@@ -101,7 +100,7 @@ after_success:
   - codecov
 
   - |
-    if [[ $TRAVIS_PULL_REQUEST == false && $TRAVIS_REPO_SLUG == $OFFICIAL_REPO && "$CONDA_UPLOAD" == "1" ]]; then
+    if [[ $TRAVIS_PULL_REQUEST == false && $TRAVIS_REPO_SLUG == $OFFICIAL_REPO ]]; then
       if [[ $TRAVIS_BRANCH == $TRAVIS_TAG  && $TRAVIS_TAG != '' && $PCDS_CHANNEL == 'pcds-tag' ]]; then
         export ANACONDA_API_TOKEN=$CONDA_UPLOAD_TOKEN_TAG
         anaconda upload bld-dir/linux-64/*.tar.bz2
