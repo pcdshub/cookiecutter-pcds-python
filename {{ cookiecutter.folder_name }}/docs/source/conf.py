@@ -23,7 +23,9 @@ sys.path.insert(0, module_path)
 # -- Project information -----------------------------------------------------
 
 project = '{{ cookiecutter.project_name }}'
-copyright = '2019, {{ cookiecutter.author_name }}'
+from datetime import datetime
+year = datetime.now().year
+copyright = '{{year}}, {{ cookiecutter.author_name }}'
 author = '{{ cookiecutter.author_name }}'
 
 # The short X.Y version
