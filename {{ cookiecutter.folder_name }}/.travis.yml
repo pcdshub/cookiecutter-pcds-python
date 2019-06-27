@@ -1,9 +1,15 @@
 language: python
 dist: xenial
-{% if cookiecutter.use_x11_on_travis == "yes" %}
-sudo: true
-{% else %}
 sudo: false
+{% if cookiecutter.use_x11_on_travis == "yes" %}
+
+services:
+    - xvfb
+
+addons:
+    apt:
+        packages:
+            - herbstluftwm
 {% endif %}
 
 env: 
@@ -67,13 +73,6 @@ install:
 
 {% if cookiecutter.use_x11_on_travis == "yes" %}
 before_script:
-  - sudo apt-get update
-  # Install window manager
-  - sudo apt-get install -y xvfb herbstluftwm
-  # Taken from docs.travis-ci.com/user/gui-and-headless-browsers
-  - "export DISPLAY=:99.0"
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1920x1200x24 -ac +extension GLX +render -noreset"
-  - sleep 3 # give xvfb some time to start
   # Run windows manager
   - "herbstluftwm &"
   - sleep 1
