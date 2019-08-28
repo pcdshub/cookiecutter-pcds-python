@@ -96,8 +96,6 @@ The directory structure of your new project looks like this:
   │
   ├── .gitignore           <- Gitignore for the repo
   │
-  ├── .landscape.yml       <- Yaml file for Landscape continuous code metrics
-  │
   ├── .logging.yml         <- Yaml file for the logger
   │
   ├── .travis.yml          <- Yaml file for travis continuous integration
