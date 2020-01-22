@@ -1,9 +1,2 @@
 coloredlogs
-coverage
-doctr
-flake8
-jupyter
-pytest
-sphinx
-sphinx_rtd_theme
 versioneer
