@@ -11,13 +11,17 @@ package:
 source:
     path: ..
 
+build:
+    number: 1
+    noarch: python
+
 requirements:
     build:
-      - python
+      - python >=3.6
       - setuptools
 
     run:
-      - python
+      - python >=3.6
 
 test:
     imports:
