@@ -10,7 +10,6 @@
     "python_interpreter": ["python3", "python"],
     "auto_git_setup": ["no","yes"],
     "git_remote_name": "origin",
-    "use_doctr": ["no","yes"],
     "auto_versioneer_setup": ["no","yes"],
     "auto_doctr_setup": ["no","yes"],
     "use_x11_on_travis": ["no","yes"]
