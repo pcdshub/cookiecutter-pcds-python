@@ -31,12 +31,13 @@ env:
     - PIP_EXTRAS="PyQt5"
 {% endif %}
 
-jobs:
-  allow_failures:
-    # This makes the PIP based Python 3.6 optional for passing.
-    # Remove this block if passing tests with PIP is mandatory for your
-    # package
-    - name: "Python 3.6 - PIP"
+# Uncomment this block if you would like to make PIP test an allowed failure
+#jobs:
+#  allow_failures:
+#    # This makes the PIP based Python 3.6 optional for passing.
+#    # Remove this block if passing tests with PIP is mandatory for your
+#    # package
+#    - name: "Python 3.6 - PIP"
 
 import:
 {% if cookiecutter.use_x11_on_travis == "yes" %}
