@@ -45,3 +45,29 @@ import:
   - pcdshub/pcds-ci-helpers:travis/shared_configs/setup-env-ui.yml
 {% endif %}
   - pcdshub/pcds-ci-helpers:travis/shared_configs/standard-python-conda.yml
+
+# If not using the standard-python-conda above please uncomment the needed
+# pieces from the blocks below.
+#
+#language: python
+#os: linux
+#dist: xenial
+#
+#stages:
+#  - build
+#  - test
+#  - name: deploy
+#    if: (branch = master OR tag IS present) AND type != pull_request
+#
+#import:
+#  # Build Stage
+#  - travis/shared_configs/anaconda-build.yml
+#  # Tests Stage
+#  - travis/shared_configs/python-tester-pip.yml
+#  - travis/shared_configs/python-tester-conda.yml
+#  - travis/shared_configs/python-linter.yml
+#  - travis/shared_configs/docs-build.yml
+#  # Deploy Stage
+#  - travis/shared_configs/pypi-upload.yml
+#  - travis/shared_configs/doctr-upload.yml
+#  - travis/shared_configs/anaconda-upload.yml
