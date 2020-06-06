@@ -46,8 +46,9 @@ import:
 {% endif %}
   - pcdshub/pcds-ci-helpers:travis/shared_configs/standard-python-conda.yml
 
-# If not using the standard-python-conda above please uncomment the needed
-# pieces from the blocks below.
+# If not using the standard-python-conda above please uncomment the required
+# (language, os, dist and stages) and optional (import statements) entries from
+# the blocks below.
 #
 #language: python
 #os: linux
@@ -61,13 +62,13 @@ import:
 #
 #import:
 #  # Build Stage
-#  - travis/shared_configs/anaconda-build.yml
+#  - pcdshub/pcds-ci-helpers:travis/shared_configs/anaconda-build.yml
 #  # Tests Stage
-#  - travis/shared_configs/python-tester-pip.yml
-#  - travis/shared_configs/python-tester-conda.yml
-#  - travis/shared_configs/python-linter.yml
-#  - travis/shared_configs/docs-build.yml
+#  - pcdshub/pcds-ci-helpers:travis/shared_configs/python-tester-pip.yml
+#  - pcdshub/pcds-ci-helpers:travis/shared_configs/python-tester-conda.yml
+#  - pcdshub/pcds-ci-helpers:travis/shared_configs/python-linter.yml
+#  - pcdshub/pcds-ci-helpers:travis/shared_configs/docs-build.yml
 #  # Deploy Stage
-#  - travis/shared_configs/pypi-upload.yml
-#  - travis/shared_configs/doctr-upload.yml
-#  - travis/shared_configs/anaconda-upload.yml
+#  - pcdshub/pcds-ci-helpers:travis/shared_configs/pypi-upload.yml
+#  - pcdshub/pcds-ci-helpers:travis/shared_configs/doctr-upload.yml
+#  - pcdshub/pcds-ci-helpers:travis/shared_configs/anaconda-upload.yml
