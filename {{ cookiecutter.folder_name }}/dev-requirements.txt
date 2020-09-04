@@ -4,11 +4,11 @@ codecov
 coverage
 flake8
 pytest
+
+# sphinx-related dependencies:
 sphinx
-# These are dependencies of various sphinx extensions for documentation.
-ipython
-matplotlib
 numpydoc
 sphinx-copybutton
 sphinx_rtd_theme
 doctr
+recommonmark
