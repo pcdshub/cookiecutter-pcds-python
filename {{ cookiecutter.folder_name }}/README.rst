@@ -33,7 +33,7 @@ Running the Tests
 ::
 
   $ python run_tests.py
-   
+
 Directory Structure
 -------------------
 

@@ -5,7 +5,7 @@ Getting started
 Requirements for the Template
 -----------------------------
 - Python >= 3.5
-- `Cookiecutter Python package <http://cookiecutter.readthedocs.org/en/latest/installation.html>`_ >= 1.4.0: This can be installed with pip by or conda depending on how you manage your Python packages: 
+- `Cookiecutter Python package <http://cookiecutter.readthedocs.org/en/latest/installation.html>`_ >= 1.4.0: This can be installed with pip by or conda depending on how you manage your Python packages:
 
 ::
 
@@ -32,7 +32,7 @@ Otherwise: ::
 Resulting Directory Structure
 -----------------------------
 
-The directory structure of your new project looks like this: 
+The directory structure of your new project looks like this:
 
 .. code-block:: text
 
@@ -56,7 +56,7 @@ The directory structure of your new project looks like this:
   │   │
   │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
   │       └── visualize.py
-  │   
+  │
   ├── data
   │   ├── external       <- Data from third party sources
   │   ├── interim        <- Intermediate data that has been transformed
@@ -64,7 +64,7 @@ The directory structure of your new project looks like this:
   │   └── raw            <- The original, immutable data dump
   │
   ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-  │   
+  │
   ├── figures
   │   ├── finalized      <- Figures that have been polished and should not be changed
   │   └── unsorted       <- Unsorted figures that are not version controlled

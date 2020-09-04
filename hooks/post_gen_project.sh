@@ -8,6 +8,5 @@ git remote add {{ cookiecutter.git_remote_name }} git@github.com:{{ cookiecutter
 versioneer install
 {% endif %}
 {% if cookiecutter.auto_doctr_setup == "yes" %}
-doctr configure 
+doctr configure
 {% endif %}
-
