@@ -41,7 +41,7 @@ if git_requirements:
 
 
 setup(
-    name='{{ cookiecutter.repo_name }}',
+    name='{{ cookiecutter.import_name }}',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     license='BSD',
@@ -49,7 +49,7 @@ setup(
     packages=find_packages(exclude=['docs', 'tests']),
     description='{{ cookiecutter.description }}',
     long_description=readme,
-    url='https://github.com/{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}',
+    url='https://github.com/{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}',  # noqa
     entry_points={
         'console_scripts': [
             # 'some.module:some_function',

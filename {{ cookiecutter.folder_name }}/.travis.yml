@@ -11,10 +11,10 @@ env:
     - DOCS_REQUIREMENTS="dev-requirements.txt requirements.txt"
     # Options to be passed to flake8 for package linting. Usually this is just
     # the package name but you can enable other flake8 options via this config
-    - PYTHON_LINT_OPTIONS="{{ cookiecutter.repo_name }}"
+    - PYTHON_LINT_OPTIONS="{{ cookiecutter.import_name }}"
 
     # The name of the conda package
-    - CONDA_PACKAGE="{{ cookiecutter.repo_name }}"
+    - CONDA_PACKAGE="{{ cookiecutter.import_name }}"
     # The folder containing the conda recipe (meta.yaml)
     - CONDA_RECIPE_FOLDER="conda-recipe"
 
