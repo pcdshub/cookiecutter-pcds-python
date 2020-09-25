@@ -52,7 +52,7 @@ setup(
     url='https://github.com/{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}',  # noqa
     entry_points={
         'console_scripts': [
-            # 'some.module:some_function',
+            # '{{ cookiecutter.repo_name }}={{ cookiecutter.import_name }}.__main__:main',  # noqa
             ],
         },
     include_package_data=True,
