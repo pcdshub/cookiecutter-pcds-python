@@ -14,7 +14,7 @@ repos:
     -   id: check-symlinks
     -   id: check-xml
     -   id: check-yaml
-        exclude: '^(conda-recipe/meta.yaml|{{ cookiecutter.folder_name }}/.travis.yml)$'
+        exclude: '^(.*/conda-recipe/meta.yaml|{{ cookiecutter.folder_name }}/.travis.yml)$'
     -   id: debug-statements
 
 -   repo: https://gitlab.com/pycqa/flake8.git
