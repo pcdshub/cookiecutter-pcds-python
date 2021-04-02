@@ -45,15 +45,17 @@ release = ""
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.todo",
-    "sphinx.ext.coverage",
-    "sphinx.ext.mathjax",
-    "sphinx.ext.viewcode",
-    "sphinx.ext.githubpages",
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.inheritance_diagram',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.ifconfig',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages',
     "numpydoc",
     "recommonmark",
-    "doctr_versions_menu",
+    "docs_versions_menu",
     "sphinx_rtd_theme",
 ]
 
@@ -84,6 +86,11 @@ language = None
 # This pattern also affects html_static_path and html_extra_path .
 exclude_patterns = []
 
+# The reST default role (used for this markup: `text`) to use for all
+# documents.
+#
+default_role = 'any'
+
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"
 
@@ -100,6 +107,9 @@ html_theme = "sphinx_rtd_theme"
 # documentation.
 #
 # html_theme_options = {}
+
+# html_css_files = []
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -120,7 +130,7 @@ html_static_path = ["_static"]
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "cookiecutterproject_namedoc"
+htmlhelp_basename = "{{ cookiecutter.project_name }}_namedoc"
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -186,10 +196,19 @@ texinfo_documents = [
     ),
 ]
 
-
 # -- Extension configuration -------------------------------------------------
 
-# -- Options for todo extension ----------------------------------------------
+# Intersphinx
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+}
 
-# If true, `todo` and `todoList` produce output, else they produce nothing.
-todo_include_todos = True
+
+# Inheritance diagram settings
+inheritance_graph_attrs = dict(
+    rankdir="TB",
+    size='""',
+)
+
+inheritance_alias = {
+}
