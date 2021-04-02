@@ -51,18 +51,18 @@ setup(
     long_description=readme,
     url='https://github.com/{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}',  # noqa
     entry_points={
-        'console_scripts': [
-            # '{{ cookiecutter.repo_name }}={{ cookiecutter.import_name }}.__main__:main',  # noqa
-            ],
-        },
+        "console_scripts": [
+            "{{ cookiecutter.repo_name }}={{ cookiecutter.import_name }}.bin.main:main",
+        ],
+    },
     include_package_data=True,
     package_data={
         '{{ cookiecutter.import_name }}': [
             # When adding files here, remember to update MANIFEST.in as well,
             # or else they will not be included in the distribution on PyPI!
             # 'path/to/data_file',
-            ]
-        },
+        ]
+    },
     install_requires=requirements,
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
