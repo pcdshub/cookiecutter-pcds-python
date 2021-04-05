@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v3.4.0
     hooks:
     -   id: no-commit-to-branch
     -   id: trailing-whitespace
@@ -14,15 +14,15 @@ repos:
     -   id: check-symlinks
     -   id: check-xml
     -   id: check-yaml
-        exclude: '^(.*/conda-recipe/meta.yaml|{{ cookiecutter.folder_name }}/.travis.yml)$'
+        exclude: '^(conda-recipe/meta.yaml)$'
     -   id: debug-statements
 
 -   repo: https://gitlab.com/pycqa/flake8.git
-    rev: 3.8.3
+    rev: 3.9.0
     hooks:
     -   id: flake8
 
 -   repo: https://github.com/timothycrosley/isort
-    rev: 5.5.2
+    rev: 5.8.0
     hooks:
     -   id: isort
