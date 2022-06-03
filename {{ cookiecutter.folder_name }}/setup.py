@@ -4,7 +4,7 @@ from os import path
 import versioneer
 from setuptools import find_packages, setup
 
-min_version = (3, 6)
+min_version = (3, 7)
 
 if sys.version_info < min_version:
     error = """
