@@ -49,6 +49,7 @@ setup(
     packages=find_packages(exclude=['docs', 'tests']),
     description='{{ cookiecutter.description }}',
     long_description=readme,
+    long_description_content_type="text/x-rst",
     url='https://github.com/{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}',  # noqa
     entry_points={
         "console_scripts": [
