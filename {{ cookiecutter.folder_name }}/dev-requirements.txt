@@ -3,12 +3,11 @@
 coverage
 flake8
 pytest
-
 # sphinx-related dependencies:
-sphinx
+docs-versions-menu
+doctr
 numpydoc
+recommonmark
+sphinx
 sphinx-copybutton
 sphinx_rtd_theme
-doctr
-docs-versions-menu
-recommonmark
