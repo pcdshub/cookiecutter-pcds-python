@@ -4,7 +4,7 @@ from os import path
 import versioneer
 from setuptools import find_packages, setup
 
-min_version = (3, 6)
+min_version = (3, 7)
 
 if sys.version_info < min_version:
     error = """
@@ -49,6 +49,7 @@ setup(
     packages=find_packages(exclude=['docs', 'tests']),
     description='{{ cookiecutter.description }}',
     long_description=readme,
+    long_description_content_type="text/x-rst",
     url='https://github.com/{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}',  # noqa
     entry_points={
         "console_scripts": [
