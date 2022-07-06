@@ -107,6 +107,7 @@ ENV/
 /logs/*
 
 # OS-specific files:
+.DS_Store
 .DS_Store?
 Icon?
 Thumbs.db
