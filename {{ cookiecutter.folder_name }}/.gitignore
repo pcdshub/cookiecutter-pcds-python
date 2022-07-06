@@ -105,3 +105,9 @@ ENV/
 
 # None of the logs
 /logs/*
+
+# OS-specific files:
+.DS_Store
+.DS_Store?
+Icon?
+Thumbs.db
