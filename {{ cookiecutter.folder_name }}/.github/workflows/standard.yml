@@ -1,0 +1,24 @@
+name: PCDS Standard Testing
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+  pull_request:
+    branches:
+      - master
+  release:
+    types:
+      - created
+
+jobs:
+  standard:
+    uses: pcdshub/pcds-ci-helpers/.github/workflows/python-standard.yml
+    with:
+      # Extras that will be installed for both conda/pip:
+      testing-extras: ""
+      # Extras to be installed only for conda-based testing:
+      conda-testing-extras: ""
+      # Extras to be installed only for pip-based testing:
+      pip-testing-extras: ""
