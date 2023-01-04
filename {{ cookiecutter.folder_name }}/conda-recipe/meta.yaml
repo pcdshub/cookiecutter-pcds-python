@@ -1,6 +1,6 @@
-{% raw %}
+{%- raw -%}
 {% set data = load_setup_py_data() %}
-{% endraw %}
+{%- endraw %}
 
 package:
   name: {{ cookiecutter.import_name }}
