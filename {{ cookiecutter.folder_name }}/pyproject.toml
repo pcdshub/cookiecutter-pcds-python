@@ -1,0 +1,53 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools",
+    "versioneer[toml]",
+]
+
+[project]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+]
+
+description = "{{ cookiecutter.description }}"
+dynamic = [ "version", "readme", "dependencies", "optional-dependencies",]
+keywords = []
+name = "{{ cookiecutter.repo_name }}"
+requires-python = ">=3.9"
+
+[options]
+zip_safe = False
+include_package_data = True
+
+[[project.authors]]
+name = "SLAC National Accelerator Laboratory"
+
+[project.license]
+file = "LICENSE"
+
+[project.scripts]
+{{ cookiecutter.repo_name }} = "{{ cookiecutter.import_name }}.bin.main:main"
+
+[tool.versioneer]
+vcs = "git"
+style = "pep440"
+versionfile_source = "{{ cookiecutter.import_name }}/_version.py"
+versionfile_build = "{{ cookiecutter.import_name }}/_version.py"
+tag_prefix = "v"
+
+[tool.setuptools.packages.find]
+where = [ "{{ cookiecutter.import_name }}",]
+include = []
+namespaces = false
+
+[tool.setuptools.dynamic.readme]
+file = "README.rst"
+
+[tool.setuptools.dynamic.dependencies]
+file = [ "requirements.txt",]
+
+[tool.setuptools.dynamic.optional-dependencies.test]
+file = "dev-requirements.txt"
