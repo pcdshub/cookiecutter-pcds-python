@@ -4,9 +4,9 @@
 
 package:
   name: {{ cookiecutter.import_name }}
-{% raw %}
+{%- raw %}
   version: {{ data.get('version') }}
-{% endraw %}
+{%- endraw %}
 
 source:
   path: ..
