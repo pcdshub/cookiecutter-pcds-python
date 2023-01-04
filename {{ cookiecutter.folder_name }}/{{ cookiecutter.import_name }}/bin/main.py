@@ -1,5 +1,5 @@
 """
-`{{cookiecutter.import_name}}` is the top-level command for accessing various subcommands.
+`{{cookiecutter.repo_name}}` is the top-level command for accessing various subcommands.
 
 Try:
 
@@ -34,14 +34,14 @@ def _build_commands():
             unavailable.append((module, ex))
         else:
             result[module] = (mod.build_arg_parser, mod.main)
-            DESCRIPTION += f'\n    $ {{cookiecutter.import_name}} {module} --help'
+            DESCRIPTION += f'\n    $ {{cookiecutter.repo_name}} {module} --help'
 
     if unavailable:
         DESCRIPTION += '\n\n'
 
         for module, ex in unavailable:
             DESCRIPTION += (
-                f'\nWARNING: "{{cookiecutter.import_name}} {module}" is unavailable due to:'
+                f'\nWARNING: "{{cookiecutter.repo_name}} {module}" is unavailable due to:'
                 f'\n\t{ex.__class__.__name__}: {ex}'
             )
 
@@ -53,7 +53,7 @@ COMMANDS = _build_commands()
 
 def main():
     top_parser = argparse.ArgumentParser(
-        prog='{{cookiecutter.import_name}}',
+        prog='{{cookiecutter.repo_name}}',
         description=DESCRIPTION,
         formatter_class=argparse.RawTextHelpFormatter
     )
@@ -62,7 +62,7 @@ def main():
         '--version', '-V',
         action='version',
         version={{cookiecutter.import_name}}.__version__,
-        help="Show the {{cookiecutter.import_name}} version number and exit."
+        help="Show the {{cookiecutter.repo_name}} version number and exit."
     )
 
     top_parser.add_argument(
