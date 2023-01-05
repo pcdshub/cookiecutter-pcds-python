@@ -111,3 +111,6 @@ ENV/
 .DS_Store?
 Icon?
 Thumbs.db
+
+# setuptools-scm _version.py should not be tracked:
+/{{ cookiecutter.import_name }}/_version.py
