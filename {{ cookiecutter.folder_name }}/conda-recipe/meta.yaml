@@ -1,12 +1,11 @@
-{%- raw -%}
-{% set data = load_setup_py_data() %}
-{%- endraw %}
+{{ "{%" }} set package_name = "{{ cookiecutter.repo_name }}" {{ "%}" }}
+{{ "{%" }} set import_name = "{{ cookiecutter.import_name }}" {{ "%}" }}
+{%- raw %}
+{% set version = load_file_regex(load_file=os.path.join(import_name, "_version.py"), regex_pattern=".*version = '(\S+)'").group(1) %}
 
 package:
-  name: {{ cookiecutter.import_name }}
-{%- raw %}
-  version: {{ data.get('version') }}
-{%- endraw %}
+  name: {{ package_name }}
+  version: {{ version }}
 
 source:
   path: ..
@@ -14,23 +13,22 @@ source:
 build:
   number: 0
   noarch: python
-{%- raw %}
   script: {{ PYTHON }} -m pip install . -vv
-{%- endraw %}
 
 requirements:
   build:
     - python >=3.7
-    - setuptools
+    - pip
     - setuptools_scm
   run:
     - python >=3.7
 
 test:
   imports:
-    - {{ cookiecutter.import_name }}
+    - {{ import_name }}
   requires:
     - pytest
+{%- endraw %}
 
 about:
   home: https://github.com/{{ cookiecutter.github_repo_group }}/{{ cookiecutter.repo_name }}

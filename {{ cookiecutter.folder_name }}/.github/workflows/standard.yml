@@ -25,3 +25,5 @@ jobs:
       conda-testing-extras: ""
       # Extras to be installed only for pip-based testing:
       pip-testing-extras: ""
+      # Use setuptools-scm in the conda-build workflow
+      use-setuptools-scm: true
