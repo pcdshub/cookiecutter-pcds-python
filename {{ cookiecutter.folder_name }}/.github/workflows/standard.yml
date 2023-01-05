@@ -14,8 +14,11 @@ on:
 
 jobs:
   standard:
-    uses: pcdshub/pcds-ci-helpers/.github/workflows/python-standard.yml
+    uses: klauer/pcds-ci-helpers/.github/workflows/python-standard.yml@enh_gha
     with:
+      # The workflow needs to know the package name.  This can be determined
+      # automatically if the repository name is the same as the import name.
+      package-name: "{{ cookiecutter.import_name }}"
       # Extras that will be installed for both conda/pip:
       testing-extras: ""
       # Extras to be installed only for conda-based testing:
