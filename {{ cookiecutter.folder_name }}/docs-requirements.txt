@@ -7,4 +7,4 @@ sphinx
 sphinx-copybutton
 sphinx_rtd_theme
 # Required for compatibility with Sphinx 6.0+:
-sphinxcontrib.jquery
+sphinxcontrib-jquery
