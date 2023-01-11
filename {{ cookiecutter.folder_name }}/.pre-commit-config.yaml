@@ -2,7 +2,6 @@
 # See https://pre-commit.com/hooks.html for more hooks
 exclude: |
   (?x)^(
-    docs/source/conf.py|
     {{ cookiecutter.import_name }}/_version.py|
   )$
 
