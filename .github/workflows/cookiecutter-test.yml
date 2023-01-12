@@ -89,6 +89,11 @@ jobs:
         python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ${IMPORT_NAME}.__file__')"
         command -v "${ENTRYPOINT_NAME}"
 
+    - name: Clean up test environment
+      if: ${{ always() }}
+      run: |
+        rm -rf test-source-env
+
     - name: Use the wheel for testing
       run: |
         cd "${HOME}/${PROJECT_DIR}"
@@ -115,7 +120,7 @@ jobs:
       if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
-        name: Cookiecutter Output
+        name: "pip: Cookiecutter Output"
         path: ~/project_name
 
   conda-test:
