@@ -1,0 +1,234 @@
+name: Cookiecutter Test
+
+on:
+  push:
+  pull_request:
+
+env:
+  MPLBACKEND: "agg"
+  QT_QPA_PLATFORM: "offscreen"
+  PROJECT_DIR: "project_name"
+  IMPORT_NAME: "project_name"
+  ENTRYPOINT_NAME: "project-name"
+  PYTHON_VERSION: "3.9"
+  MAMBA_ROOT_PREFIX: "~/micromamba"
+  CONDARC_SOURCE: |
+    notify_outdated_conda: false
+    pkgs_dirs:
+      - ~/conda_pkgs_dir
+    channels:
+      - conda-forge
+    add_pip_as_python_dependency: true
+    auto_activate_base: true
+    auto_update_conda: false
+    channel_priority: strict
+    always_yes: true
+    changeps1: false
+
+jobs:
+  pip-test:
+    name: "Python 3.9: pip"
+    runs-on: ubuntu-20.04
+
+    defaults:
+      run:
+        # The following allows for each run step to utilize ~/.bash_profile
+        # for setting up the per-step initial state.
+        # --login: a login shell. Source ~/.bash_profile
+        # -e: exit on first error
+        # -o pipefail: piped processes are important; fail if they fail
+        shell: bash --login -eo pipefail {0}
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+
+    - name: Upgrade pip
+      run: |
+        pip install --upgrade pip build
+
+    - name: Install cookiecutter and requirements
+      run: |
+        pip install -r requirements.txt
+
+    - name: Check the pip packages in the test env
+      run: |
+        pip list
+
+    - name: Configure git
+      run: |
+        git config --global user.email "pcds-bot@example.com"
+        git config --global user.name "PCDS / GitHub CI"
+
+    - name: Use the cookiecutter
+      run: |
+        cookiecutter . --no-input --output-dir "$HOME"
+
+    - name: Build wheel and source distribution
+      run: |
+        export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)
+        echo "Source date epoch set to ${SOURCE_DATE_EPOCH} for reproducible build"
+        # See: https://github.com/python/cpython/pull/5200
+        # And: https://reproducible-builds.org/docs/source-date-epoch/
+        cd "${HOME}/${PROJECT_DIR}"
+        python -m build --sdist --wheel --outdir ./dist
+
+    - name: Check the source distribution
+      run: |
+        cd "${HOME}/${PROJECT_DIR}"
+        python -m venv test-source-env
+        source test-source-env/bin/activate
+        python -m pip install ./dist/*.gz
+
+        cd /tmp
+        python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ${IMPORT_NAME}.__file__')"
+        command -v "${ENTRYPOINT_NAME}"
+
+    - name: Use the wheel for testing
+      run: |
+        cd "${HOME}/${PROJECT_DIR}"
+        python -m pip install ./dist/*.whl
+
+        cd /tmp
+        python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ${IMPORT_NAME}.__file__')"
+        command -v "${ENTRYPOINT_NAME}"
+
+    - name: After failure
+      if: ${{ failure() }}
+      run: |
+        (
+          echo "### Pip list"
+          echo "<details>"
+          echo ""
+          echo '```'
+          pip list | egrep -v -e "^#"
+          echo '```'
+          echo "</details>"
+        ) >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Upload the built package as an artifact
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: Cookiecutter Output
+        path: ~/project_name
+
+  conda-test:
+    name: "Python 3.9: conda"
+    runs-on: ubuntu-20.04
+
+    defaults:
+      run:
+        # The following allows for each run step to utilize ~/.bash_profile
+        # for setting up the per-step initial state.
+        # --login: a login shell. Source ~/.bash_profile
+        # -e: exit on first error
+        # -o pipefail: piped processes are important; fail if they fail
+        shell: bash --login -eo pipefail {0}
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Configure git
+      run: |
+        git config --global user.email "pcds-bot@example.com"
+        git config --global user.name "PCDS / GitHub CI"
+
+    - name: Set up micromamba and environment
+      run: |
+        cd "$HOME"
+        mkdir logs
+        curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj "bin/micromamba"
+        mkdir micromamba
+
+        echo "Micromamba version: $(bin/micromamba --version)" | tee "$GITHUB_STEP_SUMMARY"
+        bin/micromamba shell hook --shell=bash >> ~/.bash_profile
+
+        echo "micromamba activate" >> ~/.bash_profile
+
+    - name: Configure conda for building
+      run: |
+        echo "${CONDARC_SOURCE}" > ~/.condarc
+        echo "Contents of ~/.condarc:"
+        echo "---------------------------"
+        cat ~/.condarc
+        echo "---------------------------"
+
+    - name: Install boa for mambabuild
+      run: |
+        micromamba install boa conda-verify "python=${PYTHON_VERSION}" pip
+        micromamba info
+
+    - name: Check condarc
+      run: |
+        cat ~/.condarc
+
+    - name: Install cookiecutter and requirements
+      run: |
+        pip install -r requirements.txt
+
+    - name: Use the cookiecutter
+      run: |
+        cookiecutter . --no-input --output-dir "$HOME"
+
+    - name: Start the next steps in the cookiecutter output
+      run: |
+        echo "cd \"${HOME}/${PROJECT_DIR}\"" >> ~/.bash_profile
+
+    - name: Check the conda recipe
+      run: |
+        echo "Conda Recipe Folder':' conda-recipe"
+        echo "The recipe to be built is as follows:"
+        cat "conda-recipe/meta.yaml"
+
+    - name: Configure setuptools-scm
+      run: |
+        micromamba install setuptools-scm
+        python -m setuptools_scm
+
+    - name: Build the conda package and create the test environment
+      run: |
+        conda mambabuild "conda-recipe" \
+          --quiet \
+          --output-folder "$HOME/conda-bld" \
+          --no-anaconda-upload \
+          --python "${PYTHON_VERSION}" \
+          --extra-deps "python==${PYTHON_VERSION}" \
+          --keep-old-work \
+          2>&1 | tee $HOME/logs/mambabuild.txt
+
+    - name: Upload the built package as an artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Python 3.9 - conda - package
+        path: ~/conda-bld
+
+    - name: Use the pre-built test environment
+      run: |
+        TEST_ENV_PATH=$(ls -d ${MAMBA_ROOT_PREFIX/#\~/$HOME}/conda-bld/*/*_test_env*)
+        echo "The test path should be: ${TEST_ENV_PATH}"
+
+        if [ ! -d "${TEST_ENV_PATH}" ]; then
+          echo "Something went wrong finding the test environment path. :("
+          find ${MAMBA_ROOT_PREFIX/#\~/$HOME}/conda-bld -type d
+          exit 1
+        fi
+
+        echo "micromamba activate ${TEST_ENV_PATH}" >> ~/.bash_profile
+
+    - name: Check the conda packages in the test env
+      run: |
+        conda list
+
+    - name: Verify conda-installed package
+      run: |
+        cd /tmp
+        python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ${IMPORT_NAME}.__file__')"
+        command -v "${ENTRYPOINT_NAME}"
