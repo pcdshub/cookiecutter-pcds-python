@@ -88,7 +88,7 @@ jobs:
         python -m pip install ./dist/*.gz
 
         cd /tmp
-        python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ${IMPORT_NAME}.__file__')"
+        python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ' + ${IMPORT_NAME}.__file__)"
         command -v "${ENTRYPOINT_NAME}"
 
     - name: Use the wheel for testing
@@ -97,7 +97,7 @@ jobs:
         python -m pip install ./dist/*.whl
 
         cd /tmp
-        python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ${IMPORT_NAME}.__file__')"
+        python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ' + ${IMPORT_NAME}.__file__)"
         command -v "${ENTRYPOINT_NAME}"
 
     - name: After failure
