@@ -232,5 +232,5 @@ jobs:
     - name: Verify conda-installed package
       run: |
         cd /tmp
-        python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ${IMPORT_NAME}.__file__')"
+        python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ' + ${IMPORT_NAME}.__file__)"
         command -v "${ENTRYPOINT_NAME}"
