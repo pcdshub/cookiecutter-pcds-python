@@ -22,7 +22,7 @@ requires-python = ">=3.9"
 zip_safe = false
 include_package_data = true
 
-[options.packages.find]
+[tool.setuptools.packages.find]
 where = [ ".",]
 include = [ "{{ cookiecutter.import_name }}*",]
 namespaces = false
@@ -34,7 +34,7 @@ name = "SLAC National Accelerator Laboratory"
 file = "LICENSE"
 
 [project.scripts]
-{{ cookiecutter.repo_name }} = "{{ cookiecutter.import_name }}.bin.main:main"
+"{{ cookiecutter.repo_name }}" = "{{ cookiecutter.import_name }}.bin.main:main"
 
 [tool.setuptools_scm]
 write_to = "{{ cookiecutter.import_name }}/_version.py"
