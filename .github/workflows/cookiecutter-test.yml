@@ -83,8 +83,11 @@ jobs:
         cd
         python -m venv test-source-env
         source test-source-env/bin/activate
-        python -m pip install "${HOME}/${PROJECT_DIR}/dist/*.gz"
 
+        cd "${HOME}/${PROJECT_DIR}"
+        python -m pip install ./dist/*.gz
+
+        cd /tmp
         python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ${IMPORT_NAME}.__file__')"
         command -v "${ENTRYPOINT_NAME}"
 
