@@ -2,7 +2,10 @@ include AUTHORS.rst
 include CONTRIBUTING.rst
 include LICENSE
 include README.rst
+include dev-requirements.txt
+include docs-requirements.txt
 include requirements.txt
+include pyproject.toml
 
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
