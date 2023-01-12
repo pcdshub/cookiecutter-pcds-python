@@ -80,19 +80,13 @@ jobs:
 
     - name: Check the source distribution
       run: |
-        cd "${HOME}/${PROJECT_DIR}"
+        cd
         python -m venv test-source-env
         source test-source-env/bin/activate
-        python -m pip install ./dist/*.gz
+        python -m pip install "${HOME}/${PROJECT_DIR}/dist/*.gz"
 
-        cd /tmp
         python -c "import ${IMPORT_NAME}; print('Imported ${IMPORT_NAME} from ${IMPORT_NAME}.__file__')"
         command -v "${ENTRYPOINT_NAME}"
-
-    - name: Clean up test environment
-      if: ${{ always() }}
-      run: |
-        rm -rf test-source-env
 
     - name: Use the wheel for testing
       run: |
