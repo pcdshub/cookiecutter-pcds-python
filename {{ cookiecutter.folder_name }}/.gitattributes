@@ -1,1 +1,1 @@
-{{ cookiecutter.import_name }}/_version.py export-subst
+.git_archival.txt  export-subst

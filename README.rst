@@ -2,9 +2,6 @@
 PCDS Python Cookiecutter
 ========================
 
-.. image:: https://travis-ci.org/pcdshub/cookiecutter-pcds-python.svg?branch=master
-    :target: https://travis-ci.org/pcdshub/cookiecutter-pcds-python
-
 A project template for python projects in the Photon Controls and Data Systems
 Department (PCDS). However, in principle, there is no reason it cannot be used
 for projects outside PCDS. To learn more about cookiecutter:
@@ -45,26 +42,12 @@ Otherwise: ::
 Configuring a New Project
 -------------------------
 
-To manually setup versioneer, activate an environment with versioneer installed
-and run the following command and commit the new files it makes. ::
+setuptools-scm automatically configures versioning for you, with no
+setup steps required - when using pip.
 
-  $ versioneer install
-
-Doctr pushes automatically generated docs from travis to a github pages site.
-To manually begin using doctr first enable the `use_doctr` setting during
-cookiecutter setup and push the newly created repository to github.  In the
-settings page on the github repository, make sure to enable pages on the
-`gh-pages` branch. Make sure travis has recognized and been set to process your
-new repository. Once setup has completed, activate an environment with doctr
-installed and run this command. ::
-
-  $ doctr configure
-
-After entering your information, add the secure key to env/global/secure in the
-.travis.yml file. In the settings page on the github repository, make sure to
-enable pages on the `gh-pages` branch. **Note:** Branch protection should be
-enabled for all branches in the repository hosting the documentation as the key
-could potentially allow others to push to this repository.
+Documentation generation and deployment requires only some repository
+settings configuration.  See here for more information:
+https://confluence.slac.stanford.edu/display/PCDS/Using+GitHub+Actions
 
 
 Resulting Directory Structure
@@ -74,11 +57,11 @@ The directory structure of your new project looks like this:
 
 .. code-block:: text
 
+  ├── .github/             <- GitHub templates and workflow settings
+  │
   ├── {{ import_name }}    <- Source code for use in this project.
   │   │
   │   ├── __init__.py      <- Init file for the project
-  │   │
-  │   ├── utils.py         <- Utility functions used throughout the repo
   │   │
   │   └── tests            <- Tests for the module
   │       │
@@ -88,34 +71,23 @@ The directory structure of your new project looks like this:
   │
   ├── docs                 <- A default Sphinx project; see sphinx-doc.org for details
   │
-  ├── dev-requirements.txt <- Requirements to develop, make the sphinx documentation
+  ├── dev-requirements.txt <- Requirements to develop and test the package
   │
-  ├── logs                 <- Directory for log files and is not version controlled
-  │
-  ├── .coveragerc          <- Coveragerc file when running coverage
+  ├── docs-requirements.txt <- Requirements to make the sphinx documentation
   │
   ├── .gitignore           <- Gitignore for the repo
   │
-  ├── .logging.yml         <- Yaml file for the logger
-  │
-  ├── .travis.yml          <- Yaml file for travis continuous integration
+  ├── .logging.yml         <- Yaml configuration for Python logging
   │
   ├── LICENSE              <- License for the project
   │
-  ├── Makefile             <- Makefile for the project
-  │
   ├── MANIFEST.in          <- setup.py manifest of files
   │
-  ├── README.md            <- The top-level README for developers using this project
+  ├── README.rst           <- The top-level README for developers using this project
   │
-  ├── requirements.txt     <- The requirements file for reproducing the analysis environment, e.g.
-  │                         generated with `pip freeze > requirements.txt`
+  ├── requirements.txt     <- The requirements to install the project.
   │
   ├── run_tests.py         <- Script that runs the files in the tests directory
-  │
-  ├── setup.cfg            <- Setup file for versioneer
-  │
-  └── setup.py             <- `setup.py` file configured to use versioneer
 
 
 Installing Development Requirements
@@ -124,9 +96,4 @@ Installing Development Requirements
 
   $ pip install -Ur requirements.txt
   $ pip install -Ur dev-requirements.txt
-
-Running the Tests
------------------
-::
-
-  $ python run_tests.py
+  $ pip install -Ur docs-requirements.txt
