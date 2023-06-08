@@ -22,17 +22,20 @@ class VersionProxy(UserString):
     4. A fallback in case none of the above match - resulting in a version of
         0.0.unknown
     """
+
     def __init__(self):
         self._version = None
 
     def _get_version(self) -> Optional[str]:
         # Checking for directory is faster than failing out of get_version
-        repo_root = Path(__file__).resolve().parent.parent
+        here = Path(__file__).resolve()
+        repo_root = here.parent.parent
         if (repo_root / ".git").exists() or (repo_root / ".git_archival.txt").exists():
             try:
                 # Git checkout
                 from setuptools_scm import get_version
-                return get_version(root="..", relative_to=__file__)
+
+                return get_version(root="..", relative_to=here)
             except (ImportError, LookupError):
                 ...
 
@@ -40,6 +43,7 @@ class VersionProxy(UserString):
         # done a build at least once.
         try:
             from ._version import version  # noqa: F401
+
             return version
         except ImportError:
             ...
@@ -51,7 +55,7 @@ class VersionProxy(UserString):
         # This is accessed by UserString to allow us to lazily fill in the
         # information
         if self._version is None:
-            self._version = self._get_version() or '0.0.unknown'
+            self._version = self._get_version() or "0.0.unknown"
 
         return self._version
 
