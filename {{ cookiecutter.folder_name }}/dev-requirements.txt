@@ -1,3 +1,4 @@
 # These are required for developing the package (running the tests) but not
 # necessarily required for _using_ it.
 pytest
+pytest-cov
