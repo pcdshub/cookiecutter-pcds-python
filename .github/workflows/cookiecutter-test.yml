@@ -192,7 +192,11 @@ jobs:
 
     - name: Configure setuptools-scm
       run: |
-        micromamba install setuptools-scm
+        # In v8.0.0, write_to was removed as a config option with no deprecation period
+        # write_to makes the _version.py file get written when you check the version
+        # we used it here to write out the file via "python -m setuptools_scm"
+        # it was replaced with version_file, which only writes during the build
+        micromamba install "setuptools-scm<8.0.0"
         python -m setuptools_scm
 
     - name: Build the conda package and create the test environment
