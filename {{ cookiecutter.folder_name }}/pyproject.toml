@@ -54,3 +54,13 @@ file = "docs-requirements.txt"
 [tool.pytest.ini_options]
 addopts = "--cov=."
 
+[tool.ruff]
+line-length = 88
+exclude = [".git", "__pycache__", "build", "dist",
+           "{{ cookiecutter.import_name }}/_version.py"]
+
+[tool.ruff.lint]
+select = ["C", "E", "F", "W", "B", "B950"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
