@@ -56,11 +56,10 @@ addopts = "--cov=."
 
 [tool.ruff]
 line-length = 88
-exclude = [".git", "__pycache__", "build", "dist",
-           "{{ cookiecutter.import_name }}/_version.py"]
+exclude = [".git", "__pycache__", "build", "dist", "{{ cookiecutter.import_name }}/_version.py"]
 
 [tool.ruff.lint]
-select = ["C", "E", "F", "W", "B", "B950"]
+select = ["C", "E", "F", "W", "B"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
