@@ -1,0 +1,5 @@
+# default group
+* @pcdshub/software-admin
+
+# github folder holds administrative files
+.github/** @pcdshub/software-admin
