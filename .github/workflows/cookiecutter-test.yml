@@ -28,7 +28,7 @@ env:
 jobs:
   pip-test:
     name: "Python 3.9: pip"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     defaults:
       run:
@@ -122,7 +122,7 @@ jobs:
 
   conda-test:
     name: "Python 3.9: conda"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     defaults:
       run:
