@@ -26,6 +26,6 @@ repos:
   rev: v0.6.3
   hooks:
   - id: ruff  # run the linter
-    args: [ --fix, --select, I ]  # --select I sorts imports
+    args: [ --fix ]  # and the safe fixes
   - id: ruff-format  # run the formatter
 

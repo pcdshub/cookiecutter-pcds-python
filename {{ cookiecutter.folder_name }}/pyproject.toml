@@ -59,7 +59,7 @@ line-length = 88
 exclude = [".git", "__pycache__", "build", "dist", "{{ cookiecutter.import_name }}/_version.py"]
 
 [tool.ruff.lint]
-select = ["C", "E", "F", "W", "B"]
+select = ["C", "E", "F", "W", "B", "I"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
