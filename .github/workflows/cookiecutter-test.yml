@@ -40,11 +40,11 @@ jobs:
         shell: bash --login -eo pipefail {0}
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       with:
         fetch-depth: 0
 
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
       with:
         python-version: "3.9"
 
@@ -115,7 +115,7 @@ jobs:
 
     - name: Upload the built package as an artifact
       if: ${{ always() }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
       with:
         name: "pip - Cookiecutter Output"
         path: ~/project_name
@@ -134,7 +134,7 @@ jobs:
         shell: bash --login -eo pipefail {0}
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       with:
         fetch-depth: 0
 
@@ -211,7 +211,7 @@ jobs:
           2>&1 | tee $HOME/logs/mambabuild.txt
 
     - name: Upload the built package as an artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
       with:
         name: Python 3.9 - conda - package
         path: ~/conda-bld
